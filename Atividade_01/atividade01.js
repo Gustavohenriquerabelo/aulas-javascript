@@ -9,7 +9,7 @@ const item = [
 // matriz que armazena as informações de cada item.
 /*
 -----------------------
-Indice da matriz
+Indice da matriz 
 -------------------------
 id = 0
 nome = 1
@@ -25,22 +25,21 @@ function cadastro(){
     console.log("--------------------------------")
     console.log("|####### CADASTRAR ITEM #######|") // DESENHO CABEÇALHO DE CADASTRO
     console.log("|------------------------------|")
-    
-    let nome = readlineSync.question('\n Nome: ');
-    let valor = (readlineSync.question('\n valor do item: '));
+     
+    let nome = readlineSync.question('\n Nome: '); // pergunta o nome do item em cadastro
+    let valor = (readlineSync.question('\n valor do item: ')); // pergunta o valor do item
+    while(isNaN(valor)) // verifica se o valor é um número
+    {valor = (readlineSync.question('\n Digite um valor valido: '));} // resultado caso o valor não seja um número
 
-    while(isNaN(valor))
-    {valor = (readlineSync.question('\n Digite um valor valido: '));}
+    let quant = readlineSync.question('\n Quantidade no estoque: '); // pergunta o valor de estoque
 
-    let quant = readlineSync.question('\n Quantidade no estoque: ');
-
-    while(isNaN(quant))
+    while(isNaN(quant)) //verifica se o valor é um número
         {quant = (readlineSync.question('\n Digite um valor valido: '));}
 
-    item.push([item.length, nome, valor, , quant]);
+    item.push([item.length, nome, valor, , quant]); // envia as informações para a matriz de items
     
     console.log("--------------------------------")
-    console.log("Item cadastrado com sucesso!!\n")
+    console.log("Item cadastrado com sucesso!!\n") // resposta de execução bem sucedida
 
     
     readlineSync.question('Digite qualquer tecla para voltar: '); // CONTROLE PARA A PROXIMA PARTE
@@ -57,29 +56,31 @@ function Compra(){
     console.log("|------------------------------|")
     console.log(`                                 `)
   
-    let status
+    let status // váriavel status para definir se o produto está em estoque
+
    
     
     for (i = 0; i < item.length; i++) // RODA POR TODA A MATRIZ ATÉ CHEGAR NO UULTIMO ID
     
     {
-        if (item[i][4] <= 0) {status = "-Esgotado-"}
-        console.log(` 🛒 |${item[i][1]}| [${item[i][0]}] ${status}\n `)
-        status = ""
+        if (item[i][4] <= 0) {status = "-Esgotado-"} // se o estoque for 0, ele fica esgotaado
+        console.log(` 🛒 |${item[i][1]}| [${item[i][0]}] ${status}\n `) //para cada item digita o nome, ID e status
+        status = "" // renova o status para nada
     } // DIGITA O NOME DO ITEM ATUAL COM EMOJI
 
-    let resposta = readlineSync.question('Digite qual item deseja: ');
+    let resposta = readlineSync.question('Digite qual item deseja: '); // recebe a escolha
 
-    while (resposta >= item.length)
+
+    while (resposta >= item.length) // enquanto a resposta for maior que o numero de itens ele vai dar erro
     {resposta = readlineSync.question('Digite um item valido: ');}
 
     console.log("--------------------------------")
     console.log("                                ")
 
-    if (item[resposta][4] <= 0)
+    if (item[resposta][4] <= 0) // se o estoque do item for 0 ou menor, ele ficara esgotado
     {console.log("Este item esta esgotado, sentimos muito.")}
     else {
-        item[resposta][4]--
+        item[resposta][4]-- // se não, ele tira 1 do estoque e envia a menssagem!!
         console.log(`Item ${item[resposta][1]} foi comprado com sucesso!!`)
     }
     
@@ -109,7 +110,7 @@ if (item[id][4] <= 0 || item[id][2] <= 0){status = "Indiponível"} // SE O ITEM 
 //---------------------------------------------------------------------- ETAPA 1 ----------------------------------------------------------------------------------------------------
 
 console.log("--------------------------------")
-console.log("|####### FICHA DO ITEM  #######|")
+console.log("|####### FICHA DO ITEM  #######|") // escreve cada característica do item 
 console.log("|------------------------------|")
 console.log(`  ${status}                   `)
 console.log(`  NOME: ${item[id][1]}           `)
@@ -133,7 +134,7 @@ const readlineSync = require('readline-sync'); // carrega a biblioteca dentro da
 
 //--------------------------------------------------- Inicio --------------------------------------------------------------
 
-while (true){
+while (true){ //laço infinito para o sistema continuar
 
 console.log("--------------------------------")
 console.log("|#########  Bem vindo #########|")
@@ -145,22 +146,23 @@ for (i = 0; i < item.length; i++) // RODA POR TODA A MATRIZ ATÉ CHEGAR NO UULTI
 console.log("DIGITE: |Cadastrar| |comprar| ")
 console.log("Ou escolha o ID do item.")
 
-id = readlineSync.question('\nR:');
+id = readlineSync.question('\nR:'); // lê a resposta do usuário
 
-if (id == "comprar")
+if (id == "comprar") // se o usuario digitar comprar
     {
         console.clear(); // LIMPA A TELA PARA DEIXAR MAIS LIMPO
-        Compra()
+        Compra() // ativa a função de compra
     }
-else if (id == "cadastrar")
+else if (id == "cadastrar") // se o usuario digitar cadastrar
     {
             console.clear(); // LIMPA A TELA PARA DEIXAR MAIS LIMPO
-            cadastro()
+            cadastro() // ativa a função de cadastrar
     }
-    else if (id < item.length)
+    else if (id < item.length) // se o usuario digitar um ID de item válido 
         {
             console.clear(); // LIMPA A TELA PARA DEIXAR MAIS LIMPO
-            ficha()
+            ficha() // ativa a função de ficha do item
         }
-    
+        
+        console.clear(); // LIMPA A TELA PARA DEIXAR MAIS LIMPO
 }
