@@ -64,7 +64,7 @@ function Compra(){
     
     {
         if (item[i][4] <= 0) {status = "-Esgotado-"} // se o estoque for 0, ele fica esgotaado
-        console.log(` 🛒 |${item[i][1]}| [${item[i][0]}] ${status}\n `) //para cada item digita o nome, ID e status
+        console.log(` 🛒 |${item[i][1]}| [${item[i][0]}] ${status}\n R$ ${item[i][2]} `) //para cada item digita o nome, ID e status
         status = "" // renova o status para nada
     } // DIGITA O NOME DO ITEM ATUAL COM EMOJI
 
@@ -134,7 +134,8 @@ const readlineSync = require('readline-sync'); // carrega a biblioteca dentro da
 
 //--------------------------------------------------- Inicio --------------------------------------------------------------
 
-while (true){ //laço infinito para o sistema continuar
+let continua = true
+while (continua){ //laço infinito para o sistema continuar
 
 console.log("--------------------------------")
 console.log("|#########  Bem vindo #########|")
@@ -143,26 +144,38 @@ console.log("|------------------------------|")
 for (i = 0; i < item.length; i++) // RODA POR TODA A MATRIZ ATÉ CHEGAR NO UULTIMO ID
 {console.log(` 🛒 |${item[i][1]}| [${item[i][0]}]\n`)} // DIGITA O NOME DO ITEM ATUAL COM EMOJI
 
-console.log("DIGITE: |Cadastrar| |comprar| ")
+console.log("DIGITE: |Cadastrar| |comprar| |sair|")
 console.log("Ou escolha o ID do item.")
 
 id = readlineSync.question('\nR:'); // lê a resposta do usuário
 
-if (id == "comprar") // se o usuario digitar comprar
+switch (true){
+
+    case id == "comprar": // se o usuario digitar comprar
     {
         console.clear(); // LIMPA A TELA PARA DEIXAR MAIS LIMPO
         Compra() // ativa a função de compra
+        break;
     }
-else if (id == "cadastrar") // se o usuario digitar cadastrar
+    case id == "cadastrar": // se o usuario digitar cadastrar
     {
             console.clear(); // LIMPA A TELA PARA DEIXAR MAIS LIMPO
             cadastro() // ativa a função de cadastrar
+            break;
     }
-    else if (id < item.length) // se o usuario digitar um ID de item válido 
+    case Number(id) < item.length: // se o usuario digitar um ID de item válido 
         {
             console.clear(); // LIMPA A TELA PARA DEIXAR MAIS LIMPO
             ficha() // ativa a função de ficha do item
+            break;
         }
-        
+        case id == "sair":
+        {
+            continua = false //caso digitar sair o while fica false e sai.
+            break;
+        }
+     default:
+}
         console.clear(); // LIMPA A TELA PARA DEIXAR MAIS LIMPO
+     
 }
