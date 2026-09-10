@@ -1,7 +1,7 @@
 
 const item = [
                 [0,"Espada das sombras",1000, ,0],
-                [1,"Asas douradas",400, ,20],
+                [1,"Asas douradas",400, ,1],
                 [2,"Capacede de Neon",90, ,10],
                 [3,"Pet dragão",0, ,9],
                 [4,"Skin Cyberpunk",400, ,12]
@@ -18,23 +18,85 @@ raridade = 3
 quantidade = 4
 */
 
-let id = 4 // ID do item escolhido
-if (id >= item.length){id = 0} // Se o ID for maior ele volta para o padrão 
+//------------------------------------------- função cadastrar ----------------------------------------
 
+function cadastro(){
 
-//  npm install readline-sync --> instalar a biblioteca
-const readlineSync = require('readline-sync'); // carrega a biblioteca dentro da const readlineSync
+    console.log("--------------------------------")
+    console.log("|####### CADASTRAR ITEM #######|") // DESENHO CABEÇALHO DE CADASTRO
+    console.log("|------------------------------|")
+    
+    let nome = readlineSync.question('\n Nome: ');
+    let valor = (readlineSync.question('\n valor do item: '));
 
-//---------------------------------------------------------------------------------------- ETAPA 2 ----------------------------------------------------------------------------------
+    while(isNaN(valor))
+    {valor = (readlineSync.question('\n Digite um valor valido: '));}
 
-if (item[id][2] < 100) {
-      item[id][3] = "Comum" // SE O VALOR FOR MENOR QUE 100 ELE É COMUM
+    let quant = readlineSync.question('\n Quantidade no estoque: ');
+
+    while(isNaN(quant))
+        {quant = (readlineSync.question('\n Digite um valor valido: '));}
+
+    item.push([item.length, nome, valor, , quant]);
+    
+    console.log("--------------------------------")
+    console.log("Item cadastrado com sucesso!!\n")
+
+    
+    readlineSync.question('Digite qualquer tecla para voltar: '); // CONTROLE PARA A PROXIMA PARTE
+    console.clear(); // LIMPA A TELA PARA DEIXAR MAIS LIMPO
+
+}
+
+//-------------------------------------------- função Comprar --------------------------------------------
+
+function Compra(){
+
+    console.log("--------------------------------")
+    console.log("|########### COMPRAS ##########|") // DESENHO CABEÇALHO DE COMPRAS
+    console.log("|------------------------------|")
+    console.log(`                                 `)
+  
+    let status
+   
+    
+    for (i = 0; i < item.length; i++) // RODA POR TODA A MATRIZ ATÉ CHEGAR NO UULTIMO ID
+    
+    {
+        if (item[i][4] <= 0) {status = "-Esgotado-"}
+        console.log(` 🛒 |${item[i][1]}| [${item[i][0]}] ${status}\n `)
+        status = ""
+    } // DIGITA O NOME DO ITEM ATUAL COM EMOJI
+
+    let resposta = readlineSync.question('Digite qual item deseja: ');
+
+    while (resposta >= item.length)
+    {resposta = readlineSync.question('Digite um item valido: ');}
+
+    console.log("--------------------------------")
+    console.log("                                ")
+
+    if (item[resposta][4] <= 0)
+    {console.log("Este item esta esgotado, sentimos muito.")}
+    else {
+        item[resposta][4]--
+        console.log(`Item ${item[resposta][1]} foi comprado com sucesso!!`)
     }
-  else if (item[id][2] >= 100 && item[id][2] < 500){
-      item[id][3] = "Raro" // SE O VALOR VALER MAIS/IGUAL A 100 E MENOR QUE 500 ELE É RARO
+    
+    readlineSync.question('Digite qualquer tecla para voltar: '); // CONTROLE PARA A PROXIMA PARTE
+    console.clear(); // LIMPA A TELA PARA DEIXAR MAIS LIMPO
+}
+
+//----------------------------------------------------- Função da ficha ----------------------------------------------------
+function ficha(){
+if (item[id][2] < 100) {
+    item[id][3] = "Comum" // SE O VALOR FOR MENOR QUE 100 ELE É COMUM
   }
-  else if (item[id][2] >= 500){
-    item[id][3] = "Lendário" // SE O ITEM VALER MAIS/IGUAL A 500 ELE É LENDÁRIO
+else if (item[id][2] >= 100 && item[id][2] < 500){
+    item[id][3] = "Raro" // SE O VALOR VALER MAIS/IGUAL A 100 E MENOR QUE 500 ELE É RARO
+}
+else if (item[id][2] >= 500){
+  item[id][3] = "Lendário" // SE O ITEM VALER MAIS/IGUAL A 500 ELE É LENDÁRIO
 }
 //----------------------------------------------------------------------- ETAPA 2,5 ------------------------------------------------------------------------------------------------
 
@@ -59,66 +121,46 @@ console.log(`                                 `)
 // DESENHO DE FICHA DO ITEM COM VALORES DE CADA COLUNA DO ITEM ID 
 
 
-readlineSync.question('Digite qualquer tecla para continuar: '); // CONTROLE PARA A PROXIMA PARTE
+let resposta = readlineSync.question('Digite qualquer coisa para volta: \n'); // CONTROLE PARA A PROXIMA PARTE
 console.clear(); // LIMPA A TELA PARA DEIXAR MAIS LIMPO
-
-//------------------------------------------------------------------------------- ETAPA 3 ---------------------------------------------------------------------------------------------
-
-console.log("--------------------------------")
-console.log("|####### CADASTRAR ITEM #######|") // DESENHO CABEÇALHO DE CADASTRO
-console.log("|------------------------------|")
-console.log(`                                 `)
-
-for (let i = 0; i < 5; i++) // FAZ O CÓDIGO DE 0 ATÉ 5
-{
-    if ( (i+1) % 2 == 0) // SE A POSIÇÃO FOR PAR ELE ESCREVE:
-        { console.log(`Item ${i+1} - Cadastrado como promoção semanal com sucesso!!\n`)}
-    else 
-        {console.log(`Item ${i+1} - Cadastrado com sucesso!!\n`)} // SE NÃO FOR PAR ELE ESCREVE:
 }
+//---------------------------------------------------------------------------------------------------------------------------
+
+let id  // ID do item escolhido
+
+//  npm install readline-sync --> instalar a biblioteca
+const readlineSync = require('readline-sync'); // carrega a biblioteca dentro da const readlineSync
+
+//--------------------------------------------------- Inicio --------------------------------------------------------------
+
+while (true){
 
 console.log("--------------------------------")
-console.log("                                ")
-
-readlineSync.question('Digite qualquer tecla para continuar: '); // CONTROLE PARA A PROXIMA PARTE
-console.clear(); // LIMPA A TELA PARA DEIXAR MAIS LIMPO
-
-//----------------------------------------------------------------------------------- ETAPA 4 ------------------------------------------------------------------------------------------
-
-console.log("--------------------------------")
-console.log("|########### COMPRAS ##########|") // DESENHO CABEÇALHO DE COMPRAS
+console.log("|#########  Bem vindo #########|")
 console.log("|------------------------------|")
-console.log(`                                 `)
-
-while  (item[id][4] >= 0 ) // ENQUANTO A QUANTIDADE EM ESTOQUE FOR MAIOR OU IGUAL A 0
-{
-    
-    if (item[id][4] > 1) { //SE FOR MAIOR QUE 1
-         item[id][4]-- //DIMINUI 1 
-        console.log(` -ITEM COMPRADO-\n   quantidade restante: ${item[id][4]}\n`) // ESCREVE A QUANTIDADE ATUAL DO ITEM
-         
-        }
-    else if(item[id][4] = 1){ //QUANDO O ITEM FOR IGUAL A 1 (QUE ELE JÁ DEVE TER SIDO ESCRITO) ELE DIGITA "ITEM ESGOTADO"
-         console.log("ITEM ESGOTADO!")
-          item[id][4] = -1 // VALOR DO ESTOQUE PASSA PARA -1 PARA SAIR DO WHILE
-    }
-}
-
-console.log("--------------------------------")
-console.log("                                ")
-
-readlineSync.question('Digite qualquer tecla para continuar: '); // CONTROLE PARA A PROXIMA PARTE
-console.clear(); // LIMPA A TELA PARA DEIXAR MAIS LIMPO
-
-//---------------------------------------------------------------- ETAPA 5 -----------------------------------------------------------------------------------------------------------
-
-console.log("--------------------------------")
-console.log("|####### LISTA DE ITENS #######|") // DESENHO CABEÇALHO DE COMPRAS
-console.log("|------------------------------|")
-console.log(`                                 `)
 
 for (i = 0; i < item.length; i++) // RODA POR TODA A MATRIZ ATÉ CHEGAR NO UULTIMO ID
-{console.log(` 🛒 |${item[i][1]}| \n`)} // DIGITA O NOME DO ITEM ATUAL COM EMOJI
+{console.log(` 🛒 |${item[i][1]}| [${item[i][0]}]\n`)} // DIGITA O NOME DO ITEM ATUAL COM EMOJI
 
-console.log("--------------------------------")
-console.log("                                ")
+console.log("DIGITE: |Cadastrar| |comprar| ")
+console.log("Ou escolha o ID do item.")
+
+id = readlineSync.question('\nR:');
+
+if (id == "comprar")
+    {
+        console.clear(); // LIMPA A TELA PARA DEIXAR MAIS LIMPO
+        Compra()
+    }
+else if (id == "cadastrar")
+    {
+            console.clear(); // LIMPA A TELA PARA DEIXAR MAIS LIMPO
+            cadastro()
+    }
+    else if (id < item.length)
+        {
+            console.clear(); // LIMPA A TELA PARA DEIXAR MAIS LIMPO
+            ficha()
+        }
+    
+}
