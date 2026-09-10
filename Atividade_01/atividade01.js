@@ -142,7 +142,7 @@ console.log("|#########  Bem vindo #########|")
 console.log("|------------------------------|")
 
 for (i = 0; i < item.length; i++) // RODA POR TODA A MATRIZ ATÉ CHEGAR NO UULTIMO ID
-{console.log(` 🛒 |${item[i][1]}| [${item[i][0]}]\n`)} // DIGITA O NOME DO ITEM ATUAL COM EMOJI
+{console.log(` |${item[i][1]}| [${item[i][0]}]\n`)} // DIGITA O NOME DO ITEM ATUAL COM EMOJI
 
 console.log("DIGITE: |Cadastrar| |comprar| |sair|")
 console.log("Ou escolha o ID do item.")
