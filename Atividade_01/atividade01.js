@@ -64,7 +64,7 @@ function Compra(){
     
     {
         if (item[i][4] <= 0) {status = "-Esgotado-"} // se o estoque for 0, ele fica esgotaado
-        console.log(` 🛒 |${item[i][1]}| [${item[i][0]}] ${status}\n R$ ${item[i][2]} `) //para cada item digita o nome, ID e status
+        console.log(` 🛒 |${item[i][1]}| [${item[i][0]}] ${status}\n R$ ${item[i][2]}\n `) //para cada item digita o nome, ID e status
         status = "" // renova o status para nada
     } // DIGITA O NOME DO ITEM ATUAL COM EMOJI
 
